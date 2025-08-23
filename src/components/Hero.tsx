@@ -1,8 +1,19 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { ChevronDown, Github, Linkedin, Mail } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { motion, useScroll, useTransform } from "framer-motion";
+import {
+  ChevronDown,
+  Github,
+  Linkedin,
+  Mail,
+  MapPin,
+  Phone,
+} from "lucide-react";
+import { useEffect, useState } from "react";
 
-const Hero = () => {
+interface HeroProps {
+  isDarkMode: boolean;
+}
+
+const Hero = ({ isDarkMode }: HeroProps) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 150]);
@@ -12,20 +23,30 @@ const Hero = () => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   const particles = Array.from({ length: 50 }, (_, i) => i);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+    <section
+      className={`relative min-h-screen flex items-center justify-center overflow-hidden transition-colors duration-300 ${
+        isDarkMode
+          ? "bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900"
+          : "bg-gradient-to-br from-blue-50 via-purple-50 to-cyan-50"
+      }`}
+    >
       {/* Animated Background */}
       <div className="absolute inset-0">
         {particles.map((particle) => (
           <motion.div
             key={particle}
-            className="absolute w-1 h-1 bg-gradient-to-r from-purple-400 to-cyan-400 rounded-full"
+            className={`absolute w-1 h-1 rounded-full ${
+              isDarkMode
+                ? "bg-gradient-to-r from-purple-400 to-cyan-400"
+                : "bg-gradient-to-r from-purple-600 to-cyan-600"
+            }`}
             initial={{
               x: Math.random() * window.innerWidth,
               y: Math.random() * window.innerHeight,
@@ -54,21 +75,28 @@ const Hero = () => {
         }}
         transition={{ type: "spring", damping: 30, stiffness: 200 }}
       >
-        <div className="w-full h-full bg-gradient-radial from-purple-500/20 via-cyan-500/10 to-transparent rounded-full blur-xl" />
+        <div
+          className={`w-full h-full rounded-full blur-xl ${
+            isDarkMode
+              ? "bg-gradient-radial from-purple-500/20 via-cyan-500/10 to-transparent"
+              : "bg-gradient-radial from-purple-300/30 via-cyan-300/20 to-transparent"
+          }`}
+        />
       </motion.div>
 
-      <motion.div 
-        className="relative z-10 text-center px-6"
-        style={{ y }}
-      >
+      <motion.div className="relative z-10 text-center px-6" style={{ y }}>
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="mb-6"
         >
-          <motion.h1 
-            className="text-6xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-cyan-400 to-purple-400 mb-4"
+          <motion.h1
+            className={`text-6xl md:text-8xl font-bold text-transparent bg-clip-text mb-4 ${
+              isDarkMode
+                ? "bg-gradient-to-r from-purple-400 via-cyan-400 to-purple-400"
+                : "bg-gradient-to-r from-purple-600 via-cyan-600 to-purple-600"
+            }`}
             animate={{ backgroundPosition: ["0%", "100%", "0%"] }}
             transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
           >
@@ -78,7 +106,11 @@ const Hero = () => {
             initial={{ width: 0 }}
             animate={{ width: "100%" }}
             transition={{ duration: 1, delay: 0.8 }}
-            className="h-1 bg-gradient-to-r from-purple-500 to-cyan-500 mx-auto max-w-md"
+            className={`h-1 mx-auto max-w-md ${
+              isDarkMode
+                ? "bg-gradient-to-r from-purple-500 to-cyan-500"
+                : "bg-gradient-to-r from-purple-600 to-cyan-600"
+            }`}
           />
         </motion.div>
 
@@ -86,11 +118,15 @@ const Hero = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed"
+          className={`text-xl md:text-2xl mb-8 max-w-2xl mx-auto leading-relaxed ${
+            isDarkMode ? "text-gray-300" : "text-gray-700"
+          }`}
         >
-          MCA Graduate • Backend Developer • Data Analyst
+          Data Analyst • MCA Graduate • Business Intelligence Specialist
           <br />
-          <span className="text-purple-400">Crafting innovative solutions with code</span>
+          <span className={isDarkMode ? "text-purple-400" : "text-purple-600"}>
+            Transforming complex data into strategic business insights
+          </span>
         </motion.p>
 
         <motion.div
@@ -100,18 +136,40 @@ const Hero = () => {
           className="flex justify-center gap-6 mb-12"
         >
           {[
-            { icon: Github, href: "#", label: "GitHub" },
-            { icon: Linkedin, href: "#", label: "LinkedIn" },
-            { icon: Mail, href: "#contact", label: "Email" }
+            {
+              icon: Github,
+              href: "https://github.com/Swamibhuvanesan",
+              label: "GitHub",
+            },
+            {
+              icon: Linkedin,
+              href: "https://linkedin.com/in/swami--nathan",
+              label: "LinkedIn",
+            },
+            {
+              icon: Mail,
+              href: "mailto:swamibhuvanesan@gmail.com",
+              label: "Email",
+            },
+            { icon: Phone, href: "tel:+918825803793", label: "Phone" },
+            { icon: MapPin, href: "#", label: "Chennai, India" },
           ].map(({ icon: Icon, href, label }) => (
             <motion.a
               key={label}
               href={href}
               whileHover={{ scale: 1.2, y: -5 }}
               whileTap={{ scale: 0.9 }}
-              className="p-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 hover:bg-white/20 transition-colors"
+              className={`p-3 backdrop-blur-sm rounded-full border transition-colors ${
+                isDarkMode
+                  ? "bg-white/10 border-white/20 hover:bg-white/20"
+                  : "bg-black/10 border-black/20 hover:bg-black/20"
+              }`}
             >
-              <Icon className="w-6 h-6 text-white" />
+              <Icon
+                className={`w-6 h-6 ${
+                  isDarkMode ? "text-white" : "text-gray-800"
+                }`}
+              />
             </motion.a>
           ))}
         </motion.div>
@@ -122,12 +180,20 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 1.4 }}
           className="flex flex-col items-center"
         >
-          <span className="text-gray-400 mb-4">Scroll to explore</span>
+          <span
+            className={`mb-4 ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}
+          >
+            Scroll to explore
+          </span>
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
-            <ChevronDown className="w-6 h-6 text-purple-400" />
+            <ChevronDown
+              className={`w-6 h-6 ${
+                isDarkMode ? "text-purple-400" : "text-purple-600"
+              }`}
+            />
           </motion.div>
         </motion.div>
       </motion.div>

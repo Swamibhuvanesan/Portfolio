@@ -1,143 +1,154 @@
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
-import { Code, Database, TrendingUp, Award } from 'lucide-react';
+import React from "react";
+import { motion } from "framer-motion";
+import { Code, Database, Brain, TrendingUp } from "lucide-react";
 
-const About = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, threshold: 0.2 });
+interface AboutProps {
+  isDarkMode: boolean;
+}
 
+const About: React.FC<AboutProps> = ({ isDarkMode }) => {
   const skills = [
-    { name: 'Backend Development', level: 85, icon: Code, color: 'from-purple-500 to-purple-600' },
-    { name: 'Data Analysis', level: 78, icon: TrendingUp, color: 'from-cyan-500 to-cyan-600' },
-    { name: 'Database Management', level: 82, icon: Database, color: 'from-orange-500 to-orange-600' },
-    { name: 'Software Engineering', level: 80, icon: Award, color: 'from-green-500 to-green-600' },
+    { name: "Python", level: 90, icon: Code },
+    { name: "SQL", level: 85, icon: Database },
+    { name: "Data Analysis", level: 88, icon: TrendingUp },
+    { name: "Machine Learning", level: 82, icon: Brain },
+    { name: "Django", level: 80, icon: Code },
+    { name: "MySQL", level: 85, icon: Database },
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    }
-  };
-
   return (
-    <section id="about" className="py-20 px-6 bg-slate-50">
-      <div className="max-w-6xl mx-auto">
+    <section
+      id="about"
+      className={`py-20 ${isDarkMode ? "bg-gray-900" : "bg-gray-50"}`}
+    >
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          ref={ref}
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <motion.h2 
-            variants={itemVariants}
-            className="text-5xl font-bold text-gray-900 mb-6"
+          <h2
+            className={`text-4xl font-bold mb-4 ${
+              isDarkMode ? "text-white" : "text-gray-900"
+            }`}
           >
-            About <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-cyan-600">Me</span>
-          </motion.h2>
-          <motion.div
-            variants={itemVariants}
-            className="w-24 h-1 bg-gradient-to-r from-purple-600 to-cyan-600 mx-auto mb-8"
-          />
+            About Me
+          </h2>
+          <p
+            className={`text-xl ${
+              isDarkMode ? "text-gray-300" : "text-gray-600"
+            } max-w-3xl mx-auto`}
+          >
+            A passionate Data Analyst and MCA graduate with expertise in backend
+            development, data analysis, and machine learning. I transform
+            complex data into actionable insights and build scalable solutions
+            that drive business growth.
+          </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
           <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            className="space-y-6"
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
           >
-            <motion.div variants={itemVariants}>
-              <h3 className="text-3xl font-bold text-gray-900 mb-4">
-                Passionate About Technology
-              </h3>
-              <p className="text-gray-600 text-lg leading-relaxed mb-6">
-                As a recent MCA graduate, I bring fresh perspectives and cutting-edge knowledge to the world of technology. 
-                My academic journey has equipped me with strong fundamentals in computer applications, while my passion 
-                drives me to explore innovative solutions in backend development and data analysis.
-              </p>
-              <p className="text-gray-600 text-lg leading-relaxed">
-                I'm detail-oriented, forward-thinking, and always eager to take on new challenges. My goal is to 
-                contribute to meaningful projects that make a difference while continuously learning and growing 
-                in the ever-evolving tech landscape.
-              </p>
-            </motion.div>
-
-            <motion.div
-              variants={itemVariants}
-              className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100"
+            <h3
+              className={`text-2xl font-bold mb-6 ${
+                isDarkMode ? "text-white" : "text-gray-900"
+              }`}
             >
-              <h4 className="text-xl font-semibold text-gray-900 mb-4">Education</h4>
-              <div className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-full" />
-                  <div>
-                    <p className="font-semibold text-gray-800">Master of Computer Applications (MCA)</p>
-                    <p className="text-gray-600 text-sm">Recently Graduated • 2024</p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
+              My Journey
+            </h3>
+            <p
+              className={`text-lg mb-6 ${
+                isDarkMode ? "text-gray-300" : "text-gray-600"
+              }`}
+            >
+              As a Master of Computer Applications graduate from SRM Institute
+              of Science and Technology with an exceptional CGPA of 9.50, I
+              specialize in transforming raw data into strategic business
+              insights. My academic excellence is complemented by hands-on
+              experience in data analytics and business intelligence.
+            </p>
+            <p
+              className={`text-lg mb-6 ${
+                isDarkMode ? "text-gray-300" : "text-gray-600"
+              }`}
+            >
+              At D4 Insight, I manage CRM data validation, transformation, and
+              reporting processes while building interactive analytics
+              dashboards. I leverage Python, SQL, and statistical analysis to
+              uncover patterns, predict trends, and provide data-driven
+              recommendations that drive business growth and operational
+              efficiency.
+            </p>
           </motion.div>
 
           <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            className="space-y-8"
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
           >
-            <motion.h3 
-              variants={itemVariants}
-              className="text-3xl font-bold text-gray-900 mb-8"
+            <h3
+              className={`text-2xl font-bold mb-6 ${
+                isDarkMode ? "text-white" : "text-gray-900"
+              }`}
             >
               Technical Skills
-            </motion.h3>
-            
-            {skills.map((skill, index) => (
-              <motion.div
-                key={skill.name}
-                variants={itemVariants}
-                className="bg-white rounded-xl p-6 shadow-lg border border-gray-100"
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className={`p-3 rounded-xl bg-gradient-to-r ${skill.color}`}>
-                    <skill.icon className="w-6 h-6 text-white" />
-                  </div>
+            </h3>
+            <div className="space-y-4">
+              {skills.map((skill, index) => (
+                <motion.div
+                  key={skill.name}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="flex items-center space-x-4"
+                >
+                  <skill.icon
+                    className={`w-6 h-6 ${
+                      isDarkMode ? "text-purple-400" : "text-purple-600"
+                    }`}
+                  />
                   <div className="flex-1">
-                    <h4 className="text-lg font-semibold text-gray-900">{skill.name}</h4>
-                    <span className="text-gray-600">{skill.level}%</span>
+                    <div className="flex justify-between mb-1">
+                      <span
+                        className={`text-sm font-medium ${
+                          isDarkMode ? "text-white" : "text-gray-900"
+                        }`}
+                      >
+                        {skill.name}
+                      </span>
+                      <span
+                        className={`text-sm ${
+                          isDarkMode ? "text-gray-400" : "text-gray-500"
+                        }`}
+                      >
+                        {skill.level}%
+                      </span>
+                    </div>
+                    <div
+                      className={`w-full bg-gray-200 rounded-full h-2 ${
+                        isDarkMode ? "bg-gray-700" : ""
+                      }`}
+                    >
+                      <motion.div
+                        className="bg-gradient-to-r from-purple-600 to-cyan-500 h-2 rounded-full"
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${skill.level}%` }}
+                        transition={{ duration: 1, delay: index * 0.1 }}
+                        viewport={{ once: true }}
+                      />
+                    </div>
                   </div>
-                </div>
-                
-                <div className="relative">
-                  <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
-                    <motion.div
-                      className={`h-full bg-gradient-to-r ${skill.color} rounded-full`}
-                      initial={{ width: 0 }}
-                      animate={isInView ? { width: `${skill.level}%` } : { width: 0 }}
-                      transition={{ duration: 1, delay: 0.5 + index * 0.1, ease: "easeOut" }}
-                    />
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
         </div>
       </div>
