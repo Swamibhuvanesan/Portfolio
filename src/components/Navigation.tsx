@@ -1,6 +1,7 @@
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { useState } from "react";
 import { Menu, X, Moon, Sun } from "lucide-react";
+import meImage from "./media/me.jpg";
 
 interface NavigationProps {
   isDarkMode: boolean;
@@ -52,7 +53,7 @@ const Navigation = ({ isDarkMode, toggleDarkMode }: NavigationProps) => {
             className="flex items-center"
           >
             <img
-              src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop&crop=face"
+              src={meImage}
               alt="B N Swaminathan"
               className="w-12 h-12 rounded-full object-cover border-2 border-gradient-to-r from-purple-400 to-cyan-400"
             />
