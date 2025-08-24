@@ -1,7 +1,7 @@
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { useState } from "react";
 import { Menu, X, Moon, Sun } from "lucide-react";
-import meImage from "./media/me.jpg";
+import meImage from "./media/me.png";
 
 interface NavigationProps {
   isDarkMode: boolean;
